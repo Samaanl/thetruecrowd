@@ -47,7 +47,10 @@ const MobileControls = () => {
 
       {/* Expanded panel */}
       {isOpen && (
-        <div className="lg:hidden fixed inset-0 z-40">
+        <div
+          className="lg:hidden fixed inset-0 z-40"
+          style={{ height: "100dvh" }}
+        >
           {/* Backdrop */}
           <div
             className="absolute inset-0 bg-black/60 backdrop-blur-sm"
@@ -61,7 +64,7 @@ const MobileControls = () => {
             style={{
               animationName: "slideUp",
               height: "auto",
-              maxHeight: "70%",
+              maxHeight: "calc(100dvh - 80px)",
               paddingBottom: "env(safe-area-inset-bottom, 0px)",
             }}
           >

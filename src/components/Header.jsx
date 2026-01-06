@@ -5,8 +5,8 @@ const Header = () => {
     useStore();
 
   return (
-    <header className="absolute top-0 left-0 right-0 z-20 p-4">
-      <div className="flex items-center justify-between max-w-screen-2xl mx-auto">
+    <header className="fixed top-0 left-0 right-0 z-30 p-4 pointer-events-none">
+      <div className="flex items-center justify-between max-w-screen-2xl mx-auto pointer-events-auto">
         {/* Logo */}
         <div className="flex items-center gap-3">
           <div

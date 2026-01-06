@@ -22,9 +22,10 @@ function App() {
 
   return (
     <div
-      className={`relative w-full h-screen overflow-hidden ${
+      className={`fixed inset-0 w-full overflow-hidden ${
         isDark ? "bg-slate-950" : "bg-slate-100"
       }`}
+      style={{ height: "100dvh" }}
     >
       {/* Loading screen */}
       <LoadingScreen />
@@ -34,11 +35,11 @@ function App() {
         <Map />
       </div>
 
-      {/* Header */}
+      {/* Header - fixed to prevent shifting */}
       <Header />
 
       {/* Desktop sidebar */}
-      <div className="hidden lg:block absolute top-20 left-4 bottom-4 w-80 xl:w-96 z-20 select-none">
+      <div className="hidden lg:block fixed top-20 left-4 bottom-4 w-80 xl:w-96 z-20 select-none">
         <Sidebar />
       </div>
 
