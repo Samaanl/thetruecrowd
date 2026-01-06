@@ -105,11 +105,10 @@ const Header = () => {
             )}
           </button>
 
-          {/* Share button */}
-          {/* removed the share button becasue of redundancy */}
-          {/* <button
+          {/* Share button - hidden on mobile, shown on larger screens */}
+          <button
             onClick={() => setShowShareModal(true)}
-            className="btn-primary flex items-center gap-2 text-sm py-2.5"
+            className="hidden sm:flex btn-primary items-center gap-2 text-sm py-2.5"
           >
             <svg
               className="w-4 h-4"
@@ -125,7 +124,7 @@ const Header = () => {
               />
             </svg>
             <span className="hidden sm:inline">Share</span>
-          </button> */}
+          </button>
         </div>
       </div>
     </header>
