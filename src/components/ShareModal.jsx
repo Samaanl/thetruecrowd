@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import { toPng } from "html-to-image";
 import useStore from "../store/useStore";
 import { formatNumber, formatArea, calculateArea } from "../data/presets";
@@ -24,6 +24,9 @@ const ShareModal = () => {
   const [copySuccess, setCopySuccess] = useState(false);
   const [isSharing, setIsSharing] = useState(false);
   const [selectedFormat, setSelectedFormat] = useState("landscape"); // landscape, square, portrait
+
+  // Ref to track if we should regenerate on modal open
+  const generateImageRef = useRef(null);
 
   const IMAGE_FORMATS = {
     landscape: {
@@ -67,6 +70,11 @@ const ShareModal = () => {
     setEditableCaption(defaultCaption);
   }, [defaultCaption]);
 
+  // Store generateImage in a ref so useEffect always uses latest version
+  useEffect(() => {
+    generateImageRef.current = generateImage;
+  });
+
   // Auto-generate image when modal opens - ALWAYS regenerate fresh
   useEffect(() => {
     if (showShareModal) {
@@ -74,11 +82,13 @@ const ShareModal = () => {
       setExportedImage(null);
       setExportedBlob(null);
       const timer = setTimeout(() => {
-        generateImage(selectedFormat);
+        if (generateImageRef.current) {
+          generateImageRef.current(selectedFormat);
+        }
       }, 200);
       return () => clearTimeout(timer);
     }
-  }, [showShareModal]);
+  }, [showShareModal, selectedFormat]);
 
   // Reset caption when modal opens with new preset
   useEffect(() => {
@@ -426,7 +436,19 @@ const ShareModal = () => {
         setIsExporting(false);
       }
     },
-    [selectedFormat, setIsExporting, addToast]
+    [
+      selectedFormat,
+      setIsExporting,
+      addToast,
+      selectedDensity,
+      selectedPreset,
+      population,
+      formattedArea,
+      cityName,
+      map,
+      overlayCenter,
+      getOverlayRadius,
+    ]
   );
 
   const downloadImage = useCallback(() => {
