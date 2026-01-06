@@ -27,8 +27,8 @@ const useStore = create((set, get) => ({
     get().updateOverlay();
   },
 
-  // Selected density
-  selectedDensity: DENSITY_MODES[0],
+  // Selected density - default to Suburban Living (index 4)
+  selectedDensity: DENSITY_MODES[4],
   setSelectedDensity: (density) => {
     set({ selectedDensity: density });
     get().updateOverlay();
